@@ -1,0 +1,74 @@
+body{
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  background-image: url(一年四季图——前端/视觉中国插画.jpg);
+
+
+
+}
+.six{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: sandybrown;
+
+}
+.btn{
+  border: none;
+  margin: 5px;
+  width: 100%;
+  border-radius: 4px;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+  line-height: 30px;
+  color: white;
+  background-size: 150%;
+  cursor: pointer;
+  transition: 0.4s;
+
+
+
+}
+.btn1{
+  background-image: linear-gradient(to left,yellow,orange,sandybrown);
+}
+
+.btn2{
+  background-image: linear-gradient(to left,#b3d4fc,deepskyblue,blue);
+}
+.btn3{
+   background-image: linear-gradient(to left,rebeccapurple,rebeccapurple,purple);
+}
+.btn4{
+    background-image: linear-gradient(to left,greenyellow,lawngreen,green);
+  }
+.btn:hover{
+  background-position: right;
+}
+.btn:focus{
+  outline-style: dot-dot-dash;
+  outline-color: white;
+  outline-offset: revert;
+  outline-width: 1px;
+}
+@media screen and (max-width: 600px) {
+  .six{
+    width: 100px;
+  }
+}
+@media screen and (max-width: 50px){
+  .six{
+    width: 600px;
+  }
+}
