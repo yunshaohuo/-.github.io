@@ -1,0 +1,514 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>程序哈前端学习网站</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="all">
+    <div class="gu">
+        <qrcode_i></qrcode_i>
+    </div>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm bg navbar-dark row">
+            <div class="title col-sm-6">
+                <a class="navbar-brand " href="#" title="前端程序哈">
+                    <img src="./images/hashiqi.png" class="" alt="nav_hashiqi" width="70px" height="70px">
+                    <span style="font-size: 12px;color: lightcoral">前</span>
+                    <span style="font-size: 16px;color: orange">端</span>
+                    <span style="font-size: 20px;color: yellowgreen">程</span>
+                    <span style="font-size: 24px;color: #42b983;">序</span>
+                    <span style="font-size: 28px;color: rebeccapurple">哈</span>
+                </a>
+            </div>
+            <form class="form-inline col-sm-6" target="_blank">
+                <input class="form-control col-sm-5" type="text" placeholder="Search"  v-model="input_text">
+                <input type="button" class="btn btn-success col-sm-2 offset-sm-1" value="Search" @click="search">
+            </form>
+        </nav>
+        <nav class="navbar navbar-expand-sm bg-success navbar-dark text-light">
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <router-link to="/">
+                        <a class="nav-link" href="javascript:void(0)">HTML</a>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CSS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">javaScript</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="xiangmu.html">web前端框架</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="xiangmu.html">前端开发工具</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="main_content row">
+        <div class="aside col-sm-2">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class=" nav-link disabled" href="#">
+                        HTML教程
+                        <i class="fa fa-star-half-full"></i>
+                    </a>
+                </li>
+                <li class="nav-item" v-for="aside_item in aside">
+                    <router-link :to=aside_item.id>
+                        <a class=" nav-link" href="javascript:void(0)">{{aside_item.name}}</a>
+                    </router-link>
+
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">HTML 参考手册
+                        <i class="fa fa-star-half-full"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/install">
+                        <a class="nav-link" href="#">html标签列表</a>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/install">
+                        <a class="nav-link" href="#">http消息</a>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/install">
+                        <a class="nav-link" href="#">http方法</a>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+        <!--        h1 要获取-->
+        <div class="content col-sm-8">
+            <router-view>
+            </router-view>
+        </div>
+        <!--侧边栏-->
+        <div class="aside_right col-sm-2">
+        </div>
+        <div class="area_text container col-sm-8">
+            <!--                //评论区内容-->
+            <div class="p_gp" v-for="(item,index) in Object" :key="item.text">
+                <i_tri v-bind:email="item.email" :name="item.name"></i_tri>
+                <p class="bg-light">{{item.textarea}}</p>
+                <div class="text-success plXx row">
+                    <i class="fa fa-user-o col-8">{{" "+item.name+" "}}
+                        <span class="bg-light text-muted">
+                        {{"["+item.date+"]"}}
+                        </span>
+                    </i>
+                    <i_heart @object="obj"></i_heart>
+                </div>
+                <hr>
+            </div>
+            <!--进入评论-->
+            <div class="wenBen">
+                <p><span v-on:click.stop="holder">点击,进入评论</span></p>
+                <div class="alert alert-success text-center" v-if="p_xian">
+                    <strong>警告!</strong> {{niHao}}
+                </div>
+            </div>
+            <!--            评论界面-->
+            <transition name="vue"
+                        enter-active-class="animated fadeInUp"
+                        leave-active-class="animated fadeOut">
+                <div v-if="change_text">
+                    <form action="" class="form-group row">
+                        <div class="name col-sm-2">
+                            <label for="name">用户名：</label>
+                            <input type="text" ref="id" name="name" class="form-control" v-model="text" placeholder="输入用户名">
+                        </div>
+                        <div class="email col-sm-4">
+                            <label for="email">邮件：</label>
+                            <input type="email" name="email" class="form-control" v-model="email" placeholder="输入邮箱地址">
+                        </div>
+                    </form>
+                    <div class="textarea">
+<!--                        v-bind:disable="{disable:able_is}"-->
+                        <textarea name="" id="" class="form-control" rows="10" v-model="textarea"></textarea>
+                        <input type="submit" class="btn btn-success btn_test" value="评论" v-on:click="submit">
+                    </div>
+                </div>
+            </transition>
+            <div class="w-1000 copyright text-center">
+                Copyright © 2013-2019
+                <strong><a href="index.html" target="_blank">程序哈-{{}}</a></strong>
+                &nbsp;
+                <strong><a href="javascript:void(0);">web前端程序哈</a></strong>
+                All Rights Reserved.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var introducation={
+        template:`<div class="content">
+        <div class="header_yin">
+        <h1>HTML <span>实例</span></h1>
+            <h2>HTML 实例</h2>
+            <p>通过执行在线实例了解HTML结构</p>
+            <div class="hl-main">
+            <pre><span class="hl-brackets">&lt;</span><span class="hl-code">!</span><span class="hl-var">DOCTYPE</span><span class="hl-code"> </span><span class="hl-var">html</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">html</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">head</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">meta</span><span class="hl-code"> </span><span class="hl-var">charset</span><span class="hl-code">=</span><span class="hl-quotes">"</span><span class="hl-string">utf-8</span><span class="hl-quotes">"</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">title</span><span class="hl-brackets">&gt;</span><span class="hl-code">程序哈(web前端学习)</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">title</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">head</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">body</span><span class="hl-brackets">&gt;</span><span class="hl-code"></span><span class="hl-brackets">&lt;</span><span class="hl-reserved">h1</span><span class="hl-brackets">&gt;</span><span class="hl-code">我的第一个标题</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">h1</span><span class="hl-brackets">&gt;</span><span class="hl-code"></span><span class="hl-brackets">&lt;</span><span class="hl-reserved">p</span><span class="hl-brackets">&gt;</span><span class="hl-code">我的第一个段落。</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">p</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">body</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">html</span><span class="hl-brackets">&gt;</span> </pre>
+            </div>
+
+            <a href="https://www.runoob.com/try/try.php?filename=tryhtml_intro" target="_blank" class="btn btn-success" role="button">执行html代码执行</a>
+            <div class="text_ul">
+                <ul>
+                    <li><strong>&lt;!DOCTYPE html&gt;</strong> 声明为 HTML5 文档</li>
+                    <li><strong>&lt;html&gt;</strong> 元素是 HTML 页面的根元素</li>
+                    <li><strong>&lt;head&gt;</strong> 元素包含了文档的元（meta）数据，如 <span class="marked">&lt;meta charset="utf-8"&gt;</span> 定义网页编码格式为 <strong>utf-8</strong>。</li>
+                    <li><strong>&lt;title&gt;</strong> 元素描述了文档的标题</li>
+                    <li><strong>&lt;body&gt;</strong> 元素包含了可见的页面内容</li>
+                    <li><strong>&lt;h1&gt;</strong> 元素定义一个大标题</li>
+                    <li><strong>&lt;p&gt;</strong> 元素定义一个段落</li>
+                </ul>
+
+            </div>
+            <hr>
+            <div class="what">
+                <h2>HTML是什么？</h2>
+                <p>HTML 是用来描述网页的一种语言。</p>
+                <ul>
+                    <li>HTML 指的是超文本标记语言: <b>H</b>yper<b>T</b>ext <b>M</b>arkup <b>L</b>anguage</li>
+                    <li>HTML 不是一种编程语言，而是一种<b>标记</b>语言</li>
+                    <li>标记语言是一套<b>标记标签</b> (markup tag)</li>
+                    <li>HTML 使用标记标签来<b>描述</b>网页</li>
+                    <li>HTML 文档包含了HTML<b> 标签</b>及<b>文本</b>内容</li>
+                    <li>HTML文档也叫做<b> web 页面</b></li>
+                </ul>
+            </div>
+            <hr>
+            <div class="ul_bq">
+                <h2>HTML标签</h2>
+                <p>HTML 标记标签通常被称为 HTML 标签 (HTML tag)。</p>
+                <ul>
+                    <li>HTML 标签是由尖括号包围的关键词，比如 &lt;html&gt;</li>
+                    <li>HTML 标签通常是成对出现的，比如 &lt;b&gt; 和 &lt;/b&gt;</li>
+                    <li>标签对中的第一个标签是开始标签，第二个标签是结束标签</li>
+                    <li>开始和结束标签也被称为开放标签和闭合标签</li>
+                </ul>
+            </div>
+            <h2>HTML/CSS/JS 在线工具</h2>
+            <p>HTML/CSS/JS 在线工具可以在线编辑 HTML、CSS、JS 代码，并实时查看效果</p>
+            <a href="https://c.runoob.com/front-end/61" class="btn btn-success" role="button">在线工具</a>
+        </div>
+        <hr>
+
+    </div>`
+    }
+    var hl={
+        template:
+            `<div class="da">
+    <div class="text">
+            <h1>html <span>教程</span></h1>
+            <p>超文本标记语言（英语：HyperText Markup Language，简称：HTML）是一种用于创建网页的标准标记语言。</p>
+            <p>您可以使用 HTML 来建立自己的 WEB 站点，HTML 运行在浏览器上，由浏览器来解析。</p>
+            <p>在本教程中，您将学习如何使用 HTML 来创建站点。</p>
+            <p> HTML 很容易学习！相信您能很快学会它！</p>
+            <hr>
+        </div>
+        <div class="header_yin">
+            <h2>html 实例</h2>
+            <p>通过执行在线实例了解html结构</p>
+            <blockquote>
+                <p>注意：对于中文网页需要使用 <code><span><</span>meta charset="utf-8 <span>></span></code> 声明编码，否则会出现乱码。
+                    有些浏览器(如 360 浏览器)会设置 GBK 为默认编码，则你需要设置为<code><span><</span>meta charset="gbk<span>></span></code> 。
+                </p>
+            </blockquote>
+
+            <div class="hl-main"><pre><span class="hl-brackets">&lt;</span><span class="hl-code">!</span><span
+                    class="hl-var">DOCTYPE</span><span class="hl-code"> </span><span class="hl-var">html</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">html</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">head</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">meta</span><span class="hl-code"> </span><span
+                    class="hl-var">charset</span><span class="hl-code">=</span><span class="hl-quotes">"</span><span
+                    class="hl-string">utf-8</span><span class="hl-quotes">"</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">title</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">程序哈(web前端学习)</span><span class="hl-brackets">&lt;/</span><span
+                    class="hl-reserved">title</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">head</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;</span><span class="hl-reserved">body</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+    </span><span class="hl-brackets">&lt;</span><span class="hl-reserved">h1</span><span class="hl-brackets">&gt;</span><span
+                    class="hl-code">我的第一个标题</span><span class="hl-brackets">&lt;/</span><span
+                    class="hl-reserved">h1</span><span class="hl-brackets">&gt;</span><span class="hl-code">
+    </span><span class="hl-brackets">&lt;</span><span class="hl-reserved">p</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">我的第一个段落。</span><span
+                    class="hl-brackets">&lt;/</span><span class="hl-reserved">p</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">body</span><span
+                    class="hl-brackets">&gt;</span><span class="hl-code">
+</span><span class="hl-brackets">&lt;/</span><span class="hl-reserved">html</span><span class="hl-brackets">&gt;</span> </pre>
+            </div>
+
+            <a href="https://www.runoob.com/try/try.php?filename=tryhtml_intro" class="btn btn-success" role="button">执行html代码执行</a>
+
+        </div>
+        <hr>
+        <h2>HTML/CSS/JS 在线工具</h2>
+        <p>HTML/CSS/JS 在线工具可以在线编辑 HTML、CSS、JS 代码，并实时查看效果</p>
+        <a href="https://c.runoob.com/front-end/61" target="_blank" class="btn btn-success" role="button">在线工具</a>
+        <hr>
+        <div class="foot">
+
+        </div>
+        <hr>
+</div>`
+    }
+    var install={
+        template:`<div class="content">
+    <article>
+        <h1>HTML <span>编辑器</span></h1>
+        <hr>
+        <h2>HTML 编辑器推荐</h2>
+        <p>可以使用专业的 HTML 编辑器来编辑 HTML，菜鸟教程为大家推荐几款常用的编辑器：</p>
+        <ul>
+            <li>WebStorm:<a href="https://www.jetbrains.com/">https://www.jetbrains.com/</a></li>
+            <li>HBuilderX: <a href="https://www.dcloud.io/index.html">https://www.dcloud.io/index.html</a></li>
+        </ul>
+        <p>你可以从以上软件的官网中下载对应的软件，按步骤安装即可。</p>
+        <p>接下来我们将为大家演示如何使用 WebStorm 工具来创建 HTML 文件，其他两个工具操作步骤类似。</p>
+    </article>
+    <hr>
+    <div class="side">
+        <h2>WebStorm</h2>
+        <p>WebStorm 是jetbrains公司旗下一款JavaScript 开发工具。目前已经被广大中国JS开发者誉为"Web前端开发神器"、"最强大的HTML5编辑器"、"最智能的JavaScript IDE"等</p>
+        <p>与IntelliJ IDEA同源，继承了IntelliJ IDEA强大的JS部分的功能。</p>
+        <div class="imgHtml">
+        <h3>步骤 1: 新建 HTML 文件:</h3>
+            <p>创建不同版本的html文档:</p>
+            <img src="./images/create_html.png" alt="html文件">
+            <p>h5文档格式:</p>
+            <img src="./images/html.png" alt="html文件">
+        </div>
+        <hr>
+        <div class="save">
+            <h3>步骤 2: 另存为 HTML 文件</h3>
+            <p>然后选择" 文件(File)->另存为(Save As) "，文件名为 test.html:</p>
+            <img src="./images/save.png" alt="save">
+            <p>当您保存 HTML 文件时，既可以使用 .htm 也可以使用 .html 扩展名。两者没有区别，完全根据您的喜好，我建议统一用 .html。
+                在一个容易记忆的文件夹中保存这个文件，比如 test</p>
+        </div>
+        <hr>
+        <div class="run">
+            <h3>步骤 3: 在浏览器中运行这个 HTML 文件</h3>
+            <p>如图下，选择在默认浏览器打开（也可以其他的浏览器）:</p>
+            <img src="./images/run.png" alt="run">
+            <p>运行结果如下：</p>
+            <img src="./images/result.png" alt="result" width="800px" height="400px">
+        </div>
+        <hr>
+
+    </div>
+
+
+</div>
+`
+    }
+    var element=``
+    Vue.component("i_heart",{
+            props:[],
+            data: function () {
+                return{
+                    delete_i:false,
+                    heart_i:false,
+                    heart_o:'heart_o',
+                    heart_ha:'heart_ha',
+                    ob:[]
+                }
+            },
+            methods: {
+                async deleteList(){
+                    this.delete_i=!this.delete_i
+                    await axios
+                        .get('http://localhost:4000/login')
+                        .then(res=>{
+                            // window.location.reload()
+                        //     for (var i=0;i<res.data.length;i++){
+                        //
+                        //         var de={name:res.data[i],email:res.data[i],textarea:res.data[i],date:null}
+                        // }
+                            this.$emit('object',this.ob)
+                            // console.log(this.ob)
+                        })
+                },
+                objHolder(){
+                }
+            },
+            template:`<div class="fontAwesome col-4 row">
+                        <i class="fa fa-heart col-6 text-center" v-on:click="heart_i=!heart_i" v-bind:class="[heart_i?heart_ha:heart_o]"></i>
+                        <i class="fa fa-trash col-6 text-center" v-on:click="deleteList" v-bind:class="[delete_i?heart_ha:heart_o]"></i>
+                      </div>`
+        }
+    ),
+     Vue.component('i_tri',{
+            props:['name','email'],
+            data:function () {
+                return{
+                    tri_is:false
+                }
+            },
+            methods: {
+                triHolder(){
+                    this.tri_is=!this.tri_is
+                }
+            },
+            template:`<p class="fa fa-user-circle-o col-sm-6">
+                    <span class="p_hover" v-on:click="triHolder">
+                        <i class="spanList" v-if="tri_is">
+                            <span class="tri"></span>
+                            <i class="fa fa-envelope tiShi">{{email}}</i>
+                        </i>{{" "+name+" "}}
+                    </span>
+                    评论：
+                </p>`
+        })
+    Vue.component('qrcode_i',{
+        data(){
+            return{
+                image_is:false
+            }
+        },
+        methods:{
+            qrCode(){
+                this.image_is=!this.image_is
+            }
+        },
+        template:`
+    <div class="dui">
+        <div class="ding"><a href="#"><i class="fa fa-arrow-up"></i></a></div>
+        <div class="ma"><a href="javascript:void(0)" @click.stop="qrCode"><i class="fa fa-qrcode" aria-hidden="true"></i></a></div>
+        <img src="images/qrcode.png" alt="二维码" v-if="image_is">
+    </div>`
+    })
+    var obj=new VueRouter({
+        routes:[{path:"/",component:hl,}
+            ,{path: "/introducation",component:introducation},
+            {path:"/install",component:install}
+        ]
+    })
+    var vm = new Vue({
+        el: ".all",
+        data: {
+            change_text: false,
+            text: '',
+            email: '',
+            input_text:'',
+            textarea: '',
+            info:null,
+            // able:{
+            //     disable: 'disable'
+            // },
+            niHao: '评论内容不完整！！！！',
+            p_xian: false,
+            heart_is: false,
+            date: new Date().toLocaleString(),
+            Object: [],
+            aside:[{name:'HTML简介',id:"introducation"},{name:'HTML编辑器',id:'install'},{name:'HTML元素',id:'introducation'},
+                {name:'HTML属性',id:"install"},{name:'HTML表格',id:"introducation"},{name:'HTML脚本',id:"install"},{name:'HTML速查列表',id:"introducation"}]
+        },
+        methods: {
+            obj(ob){
+                this.Object=ob
+            },
+            holder() {
+                this.change_text = !this.change_text
+                this.p_xian = false
+            },
+            submit() {
+                if (this.email.length == 0 || this.text.length == 0 || this.textarea.length == 0) {
+                    this.p_xian = true
+
+                    this.myFocus()
+                    return
+                } else {
+                    //空字符串
+                    axios
+                        .post('http://localhost:4000/host',{
+                            name:this.text,
+                            email:this.email,
+                            text:this.textarea
+                        })
+                        .then(res=>{
+                            var dui = {name: res.data.name, email: res.data.email, textarea: res.data.text, date: this.date}
+                            this.Object.push(dui)
+                        })
+                    this.able_is=false
+                    this.p_xian=false
+                    this.email = this.textarea = this.text = ""
+                }
+            },
+            heart(){
+                this.heart_is=!this.heart_is
+            },
+            myFocus(){
+                this.$refs.id.focus()
+            },
+            search(){
+                if (!this.input_text) {
+                    alert("输入数据ok？")
+                    return
+                }else if(this.aside.indexOf(this.input_text) !==-1){
+
+                }
+
+
+            }
+        },
+        created(){
+            axios
+                .get('http://localhost:4000/administrator')
+                .then(response => {
+                    if(response.data.length ==0) {return}
+                        for(var i =0;i<response.data.length;i++){
+                            var s = {name: response.data[i].name, email: response.data[i].email, textarea: response.data[i].text, date: this.date}
+                            this.Object.push(s)
+                        }
+                    }
+                )
+
+        },
+        mounted() {
+
+        },
+        router:obj
+    })
+</script>
+</body>
+</html>
