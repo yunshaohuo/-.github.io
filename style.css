@@ -1,0 +1,222 @@
+body {
+    padding: 3px;
+    margin: 0;
+    background-color: #f6f6f6;
+
+}
+/*模板中样式*/
+.content span{
+    color: #28a76c;
+}
+.text_ul ul,.what ul,.ul_bq ul{
+    margin: 20px;
+}
+.text_ul li,.what li,.ul_bq li{
+    list-style-type: circle;
+    color: #28a76c;
+    font-size: 12px;
+}
+a {
+    color: #28a76c;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #59ce7d;
+}
+
+.flex-column .nav-item .nav-link {
+    border-bottom: #dddddd 1px solid;
+    background-color: #f6f4f0;
+    font-size: 14px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #f8f9fa;
+}
+
+.main_content {
+    margin-top: 30px;
+}
+/*宽度整个屏幕*/
+.container-fluid {
+
+    padding: 0px;
+    color: white;
+    background-color: #f6f6f6;
+}
+
+.nav-item {
+    margin: 0px 10px;
+}
+/*星星*/
+.disabled i{
+    margin-left: 10px;
+    font-size: 1rem;
+}
+/*导航栏无下划线*/
+a:hover{
+
+}
+.form-control {
+    height: 30px;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #29b148;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem #28a745;
+}
+
+.btn-success {
+    line-height: 15px;
+}
+
+blockquote {
+    background-color: #dddddd;
+}
+
+.copyright {
+    margin-top: 200px;
+}
+
+.wenBen p {
+    font-size: 20px;
+    text-align: center;
+    color: #28a76c;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.wenBen span:after {
+    content: "✎";
+    position: absolute;
+    font-size: 15px;
+    left: -28px;
+    bottom: 0px;
+    z-index: 1;
+
+}
+
+.wenBen span {
+    text-shadow: 0px 0px 10px #dddddd;
+    position: relative;
+}
+
+.wenBen a {
+    text-decoration: none;
+}
+
+.wenBen {
+    margin-top: 0px;
+}
+.wenBen p span{
+    cursor:pointer;
+}
+
+.textarea {
+    position: relative;
+}
+.btn_test {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.text-muted{
+    font-size: 1rem;
+}
+.area_text {
+    margin-top: 60px;
+}
+
+.bg-light {
+    color: #28a76c;
+}
+
+.bg-light, .plXx {
+    padding-left: 20px;
+}
+
+.fa {
+
+    font-size: 20px;
+}
+
+.heart_o {
+    color: #495057;
+}
+
+.heart_ha {
+    color:#28a76c;
+}
+
+.container {
+    background-color: white;
+}
+.navbar-nav{
+    padding: 0px;
+}
+.navbar-nav li a:hover{
+    text-decoration: none;
+}
+.content{
+
+}
+.gu{
+    position: fixed;
+    right: 10px;
+    top: 80%;
+    width: 3rem;
+    z-index: 1000;
+    background: whitesmoke;
+    box-shadow: 1px 1px 10px #dddddd;
+    color: #28a76c;
+}
+.gu img{
+    position: absolute;
+    right: 44px;
+    bottom: 0px;
+
+}
+.ding,.ma{
+    text-align: center;
+    border-bottom:#dddddd 1px solid;
+    height: 40px;
+    line-height: 40px;
+}
+/*12 -10改*/
+.p_hover{
+    position: relative;
+    cursor: help;
+}
+
+.tiShi{
+    content: '';
+    position: absolute;
+    overflow: hidden;
+    word-wrap: break-word;
+    left: 10px;
+    bottom: 25px;
+    background: #28a76c;
+    border-radius: 10%;
+    box-shadow: 1px 1px 5px #28a76c;
+    z-index:1;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+
+}
+/*['HTML简介','HTML编辑器','HTML元素',*/
+/*'HTML属性','HTML表格','HTML脚本','HTML速查列表']*/
+.tri{
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 20px;
+    border-color: #28a76c transparent transparent transparent;
+    border-width: 5px;
+    border-style: solid;
+}
